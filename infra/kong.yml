@@ -1,0 +1,18 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: demo-service
+    url: https://httpbin.org/anything
+    routes:
+      - name: demo-route
+        paths:
+          - /api
+    plugins:
+      - name: openid-connect
+        config:
+          issuer: "http://keycloak:8080/realms/online-shop"
+          client_id: "frontend-client"
+          bearer_only: true
+          scopes_required:
+            - openid

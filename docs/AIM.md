@@ -1,5 +1,5 @@
 # NT219 — Cryptography & Applications  
-## Week 1 — Asset-Centric AIM Definition
+## Asset-Centric AIM Definition
 
 ### 1. Tên đề tài
 Thiết kế & đánh giá an toàn mật mã cho nền tảng thương mại điện tử (Online Shopping Service Platform)

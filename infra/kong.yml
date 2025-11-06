@@ -11,8 +11,23 @@ services:
     plugins:
       - name: openid-connect
         config:
-          issuer: "http://keycloak:8080/realms/online-shop"
-          client_id: "frontend-client"
-          bearer_only: true
+          # CẤU HÌNH KEYCLOAK (ISSUER & CLIENT)
+          issuer: "http://keycloak:8080/realms/Online-shop" 
+          client_id: "online_shop_client"
+          client_secret: "yu5pWA37eHRu4Wua9mZWVzW3PXPb6aIL"
+          
+          
+          auth_methods: authorization_code # Bật luồng chuyển hướng người dùng đến Keycloak để đăng nhập
+          bearer_only: false # Tắt chế độ chỉ chấp nhận Bearer Token
+          
+         
+          session_secret: "A_VERY_LONG_AND_SECURE_RANDOM_STRING_FOR_COOKIE_SIGNING" # ⭐ CẦN THAY THẾ bằng một chuỗi ngẫu nhiên, mạnh
+          
           scopes_required:
             - openid
+            - profile # Yêu cầu thông tin cơ bản của người dùng
+          
+          # Cấu hình tùy chọn: Tự động khám phá các endpoint của Keycloak
+          discovery: true 
+          
+          

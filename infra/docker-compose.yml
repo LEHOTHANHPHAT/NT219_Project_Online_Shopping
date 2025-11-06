@@ -1,15 +1,17 @@
 version: "3.8"
-
+volumes:
+  postgres_data:
+  keycloak_data:
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:25.0.0
-    command: ["start-dev"]
+    command: [ "start-dev" ]
     environment:
       KC_DB: postgres
       KC_DB_URL_HOST: postgres
-      KC_DB_URL_DATABASE: kong 
-      KC_DB_USERNAME: kong     
-      KC_DB_PASSWORD: kong    
+      KC_DB_URL_DATABASE: kong
+      KC_DB_USERNAME: kong
+      KC_DB_PASSWORD: kong
       KEYCLOAK_ADMIN: kong
       KEYCLOAK_ADMIN_PASSWORD: kong
     ports:
@@ -26,11 +28,19 @@ services:
       - "5432:5432"
     restart: unless-stopped
 
+  mock-service:
+    image: nginxdemos/hello
+    restart: unless-stopped
   kong:
     image: kong/kong-gateway:3.7.0.0-ubuntu
     depends_on:
       - postgres
       - keycloak
+      - mock-service
+      - vault
+      - opa
+      - cart-service
+      - payment-service
     environment:
       KONG_DATABASE: postgres
       KONG_PG_HOST: postgres
@@ -39,7 +49,7 @@ services:
       KONG_PG_DATABASE: kong
       KONG_PROXY_ACCESS_LOG: /dev/stdout
       KONG_ADMIN_ACCESS_LOG: /dev/stdout
-      KONG_PROXY_ERROR_LOG: /dev/stderr 
+      KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_ADMIN_ERROR_LOG: /dev/stderr
       KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
       KONG_PLUGINS: bundled,openid-connect
@@ -47,3 +57,33 @@ services:
       - "8000:8000"
       - "8001:8001"
     restart: unless-stopped
+  vault:
+    image: hashicorp/vault:1.21
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: root_token
+      VAULT_ADDR: 'http://0.0.0.0:8200'
+    cap_add:
+      - IPC_LOCK
+    command: server -dev
+    restart: unless-stopped
+  opa:
+    image: openpolicyagent/opa:latest
+    command: run --server --addr :8181 --log-level debug
+    ports:
+      - "8181:8181"
+    restart: unless-stopped
+  cart-service:
+    build:
+      context: ../services/cart
+    restart: unless-stopped
+    depends_on:
+      - opa # Cart Service phụ thuộc vào OPA để AuthZ
+
+  payment-service:
+    build:
+      context: ../services/payment
+    restart: unless-stopped
+    depends_on:
+      - vault # Payment Service phụ thuộc vào Vault để Crypto

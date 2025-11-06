@@ -1,0 +1,5 @@
+{
+    "key": "http://localhost:8180/realms/online-shop",
+    "rsa_public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7SRF5pb6rOkpDJTKy6jyiTMYj8+rCUq5hdnptnzkaO8mNLg0WJHx4Xr2vNu5aSAGv/e49L0AXzpmscJ1S7Zhc5n605SdXUOxSvB4lbQTHT8JEP6fwPFdwckKt3txRUne0POyuIm3PyNfcRda7DwJIglritRuDhk2OwNq7u/FQ1Rq0zy3KuSyu4mBNAVde78S/jjrC2uXjsdDoS5mYlGeMuOtqlMsS85J4EjtPCaKBNxfp9Ol/Yb2+LmRAulFFDL6Ns4UN7QbXvnwW3x9fjirlLZrMyRwMeigKMx5dZVNK2ffJCNlqJvs0n3b3uFQaJ5MlyYNCyjrUB8QHfnQJP/k+wIDAQAB\n-----END PUBLIC KEY-----\n",
+    "algorithm": "RS256"
+}

@@ -9,7 +9,7 @@ def checkout():
     data = request.get_json()
     card_number = data.get('card_number')
     
-    # Bước 1: Tokenization và Mã hóa Dữ liệu
+    # Tokenization và Mã hóa Dữ liệu
     # Dữ liệu thẻ/PII sẽ được gửi đến Vault (http://vault:8200) để mã hóa (Transit Engine)
     
     return jsonify({

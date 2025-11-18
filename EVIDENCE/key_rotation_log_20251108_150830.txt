@@ -1,0 +1,13 @@
+START TIME (Unix): 1762589310.661893600
+Sending rotation request to Vault...
+{"request_id":"4f183ab1-c6a6-14df-e26e-3bdc30180112","lease_id":"","renewable":false,"lease_duration":0,"data":{"allow_plaintext_backup":false,"auto_rotate_period":0,"deletion_allowed":false,"derived":false,"exportable":false,"imported_key":false,"keys":{"1":1762587404,"2":1762588294,"3":1762588758,"4":1762589075,"5":1762589185,"6":1762589301,"7":1762589310},"latest_version":7,"min_available_version":0,"min_decryption_version":1,"min_encryption_version":0,"name":"payment-key","supports_decryption":true,"supports_derivation":true,"supports_encryption":true,"supports_signing":false,"type":"aes256-gcm96"},"wrap_info":null,"warnings":null,"auth":null,"mount_type":"transit"}
+
+END TIME (Unix): 1762589310.875975800
+--- RESULT ---
+Key: payment-key
+DURATION (Total Time):  seconds
+--- RESULT ---
+Key: payment-key
+START TIME (Log): 1762589310.661893600
+END TIME (Log): 1762589310.875975800
+DURATION (Total Time): 0.261 seconds (Calculated manually)
